@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct LoginApp: App {
+    @StateObject var authentication = Authentication()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if authentication.isValidated {
+                ContentView()
+                    .environmentObject(authentication)
+            } else {
+                LoginView()
+                    .environmentObject(authentication)
+            }
         }
     }
 }
